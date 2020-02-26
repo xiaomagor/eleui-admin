@@ -42,6 +42,17 @@ const actions = {
       })
     })
   },
+   // token auto login
+   autologin({ commit }, token) {
+     return new Promise(resolve => {
+
+       //设置token
+        commit('SET_TOKEN', token)
+        setToken(token)
+        resolve()
+      }
+     )
+  },
 
   // get user info
   getInfo({ commit, state }) {
@@ -49,14 +60,21 @@ const actions = {
       getInfo(state.token).then(response => {
         const { data } = response
 
+        debugger
+        console.log(response)
+
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        let { userName, userIcon } = data
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        if(!userIcon){
+          userIcon = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+        }
+
+        commit('SET_NAME', userName)
+        commit('SET_AVATAR', userIcon)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -68,6 +86,7 @@ const actions = {
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
+        
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')

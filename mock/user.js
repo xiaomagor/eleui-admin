@@ -41,7 +41,7 @@ export default [
       }
 
       return {
-        code: 20000,
+        code: 200,
         data: token
       }
     }
@@ -52,8 +52,14 @@ export default [
     url: '/vue-admin-template/user/info\.*',
     type: 'get',
     response: config => {
+    
       const { token } = config.query
-      const info = users[token]
+      
+      let info = undefined 
+
+      if (token){
+        info = users['admin-token']
+      }
 
       // mock error
       if (!info) {
@@ -64,7 +70,7 @@ export default [
       }
 
       return {
-        code: 20000,
+        code: 200,
         data: info
       }
     }
@@ -76,7 +82,7 @@ export default [
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: 200,
         data: 'success'
       }
     }

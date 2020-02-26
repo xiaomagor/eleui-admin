@@ -76,7 +76,27 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/example2',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example2',
+    meta: { title: 'Example2', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table2',
+        component: () => import('@/views/table/index2'),
+        meta: { title: 'Table测试2', icon: 'table' }
+      },
+      {
+        path: 'table',
+        name: 'Table测试2',
+        component: () => import('@/views/table/index2'),
+        meta: { title: 'Table测试2', icon: 'table' }
+      }
+    ]
+  },
   {
     path: '/form',
     component: Layout,
@@ -84,7 +104,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'Form',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/form'),
         meta: { title: 'Form', icon: 'form' }
       }
     ]
