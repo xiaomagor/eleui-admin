@@ -43,7 +43,7 @@ module.exports = {
         //反向代理配置mock,同域配置路径不能同VUE_APP_BASE_API
 
        // target: `http://localhost:${port}/mock`,
-        target: process.env.VUE_APP_AUTH_SERVER,
+        target: process.env.VUE_APP_PROXY_SERVER,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

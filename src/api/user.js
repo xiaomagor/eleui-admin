@@ -16,5 +16,13 @@ export function logout(token) {
    
   })
 
+}
 
+export function getUserList(urlparam) {
+    return request({
+      url: 'mcs-service/user/list',
+      method: 'get',
+      params: urlparam?urlparam:{}
+     
+    })
 }

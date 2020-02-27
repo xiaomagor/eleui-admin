@@ -38,7 +38,17 @@ export function removeToken() {
 export function getDirectAuthServer(query){
 
    let callbackUrl = encodeURIComponent(window.location.href);
-   let redirect=`${process.env.VUE_APP_AUTH_SERVER}?callback=${callbackUrl}&id=${process.env.VUE_APP_ID}`
+   //默认取同域地址，开发环境用到
+   let authServer = window.location.origin
+
+   //开发环境,默认取代理地址;生产环境此地址为空
+   if(process.env.VUE_APP_PROXY_SERVER){
+       authServer = process.env.VUE_APP_PROXY_SERVER;
+   }
+   console.log(`ENV: ${process.env.ENV},authServer: ${authServer}`)
+
+   
+   let redirect=`${authServer}/${process.env.VUE_APP_AUTH_SERVICE}?callback=${callbackUrl}&id=${process.env.VUE_APP_ID}`
   
    console.log(`no token redirect: ${redirect}`)
 
